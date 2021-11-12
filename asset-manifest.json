@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.84e9576f.chunk.css",
-    "main.js": "/static/js/main.0ed4f63e.chunk.js",
-    "main.js.map": "/static/js/main.0ed4f63e.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.2615b623.js",
-    "runtime-main.js.map": "/static/js/runtime-main.2615b623.js.map",
-    "static/js/2.6213c501.chunk.js": "/static/js/2.6213c501.chunk.js",
-    "static/js/2.6213c501.chunk.js.map": "/static/js/2.6213c501.chunk.js.map",
-    "static/js/3.2e6a6136.chunk.js": "/static/js/3.2e6a6136.chunk.js",
-    "static/js/3.2e6a6136.chunk.js.map": "/static/js/3.2e6a6136.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.84e9576f.chunk.css.map": "/static/css/main.84e9576f.chunk.css.map",
-    "static/js/2.6213c501.chunk.js.LICENSE.txt": "/static/js/2.6213c501.chunk.js.LICENSE.txt",
-    "static/media/taiwan.c9b4072e.png": "/static/media/taiwan.c9b4072e.png"
+    "main.css": "/taiwan_travel/static/css/main.84e9576f.chunk.css",
+    "main.js": "/taiwan_travel/static/js/main.0ed4f63e.chunk.js",
+    "main.js.map": "/taiwan_travel/static/js/main.0ed4f63e.chunk.js.map",
+    "runtime-main.js": "/taiwan_travel/static/js/runtime-main.1038bf94.js",
+    "runtime-main.js.map": "/taiwan_travel/static/js/runtime-main.1038bf94.js.map",
+    "static/js/2.6213c501.chunk.js": "/taiwan_travel/static/js/2.6213c501.chunk.js",
+    "static/js/2.6213c501.chunk.js.map": "/taiwan_travel/static/js/2.6213c501.chunk.js.map",
+    "static/js/3.2e6a6136.chunk.js": "/taiwan_travel/static/js/3.2e6a6136.chunk.js",
+    "static/js/3.2e6a6136.chunk.js.map": "/taiwan_travel/static/js/3.2e6a6136.chunk.js.map",
+    "index.html": "/taiwan_travel/index.html",
+    "static/css/main.84e9576f.chunk.css.map": "/taiwan_travel/static/css/main.84e9576f.chunk.css.map",
+    "static/js/2.6213c501.chunk.js.LICENSE.txt": "/taiwan_travel/static/js/2.6213c501.chunk.js.LICENSE.txt",
+    "static/media/taiwan.c9b4072e.png": "/taiwan_travel/static/media/taiwan.c9b4072e.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.2615b623.js",
+    "static/js/runtime-main.1038bf94.js",
     "static/js/2.6213c501.chunk.js",
     "static/css/main.84e9576f.chunk.css",
     "static/js/main.0ed4f63e.chunk.js"
