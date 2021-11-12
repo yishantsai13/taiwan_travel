@@ -1,29 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getScenicSpot } from '.././api/getScenicSpot'
+import { useSearchParams } from "react-router-dom";
 
-export default class SearchResult extends React.Component {
-  render() {
-    const { item } = this.props
-    console.log(item)
-    const imgStyle = {
-      backgroundImage: `url(${item.Picture.PictureUrl1})`
-    }
+// components
+import SearchBar from "./SearchBar";
+import Card from "./Card";
+
+export default function SearchResult() {
+  const [country] = useState('')
+  const [scenicSpotList, setScenicSpotList] = useState([])
+  const [totalDataAmount, setTotalDataAmount] = useState(0)
+
+  let [searchParams] = useSearchParams();
+  const value = searchParams.get("country")
+  const keyWord = searchParams.get("keyword")
+  console.log(keyWord)
+  useEffect(() => {
+    getScenicSpot({ keyWord, limitNum: 20 }).then(
+      (result) => {
+        setScenicSpotList(result)
+        setTotalDataAmount(result.length)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, [keyWord])
+
+  // const scenicSpotList = this.state.scenicSpotList.slice();
+  const cardList = scenicSpotList.map((item, index) => {
     return (
-      <div className="flex-1 bg-white rounded card">
-        <div className="bg-cover bg-center w-full card-img rounded-t" style={imgStyle}>
-          {/* <img src={item.Picture.PictureUrl1} className="w-auto"></img> */}
-        </div>
-        <div className="p-md">
-          <h2 className="text-sm">{item.Name}</h2>
-          <div className="text-ss text-gray-dark py-md space-y-sm">
-            <div>
-              {item.OpenTime}
-            </div>
-            <div>
-              位置
-            </div>
-          </div>
-        </div>
+      <Card
+        key={index}
+        item={item}
+      ></Card>
+    );
+  });
+
+  return (
+    <div className="container">
+      <SearchBar></SearchBar>
+      <div className="grid grid-cols-4 gap-4 mt-10">
+        {cardList}
       </div>
-    )
-  }
+    </div>
+  )
 }

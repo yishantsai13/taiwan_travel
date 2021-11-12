@@ -1,8 +1,10 @@
 import React from "react";
-export default class SearchBar extends React.Component {
+
+export default class SearchBarSimple extends React.Component {
   render() {
+    // let navigate = useNavigate();
     return (
-      <div className="bg-white flex flex-1 px-4 py-3 rounded border border-brown-lighter h-fit-content mr-12">
+      <div className="bg-white flex flex-1 px-4 py-3 rounded border border-gray-lighter h-fit-content mr-12">
         <input
           type="text"
           className="flex-1 focus:outline-none "

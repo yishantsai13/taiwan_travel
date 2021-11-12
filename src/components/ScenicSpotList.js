@@ -17,7 +17,7 @@ export default class ScenicSpotList extends React.Component {
     });
     const emptyMessage = <div>沒有資料喔!</div>;
     return (
-      <div className="flex jusitfy-between space-x-4">{scenicSpotList.length ? cardList : emptyMessage}</div>
+      <div className="grid grid-cols-4 gap-4">{scenicSpotList.length ? cardList : emptyMessage}</div>
     )
   }
 }

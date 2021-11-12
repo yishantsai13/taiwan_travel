@@ -13,13 +13,17 @@ function getAuthorizon() {
   return { Authorization: authorization, "X-Date": GMTStr };
 }
 
-function getScenicSpot(keyWord = "", city) {
-  const limitNum = 5;
+function getScenicSpot(data = {}) {
+  console.log(data)
   let url = ''
-  if (city) {
-    url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/${city}?$top=${limitNum}&$filter=contains(Name,'${keyWord}')&$format=JSON`
+  let query = ['$format=JSON']
+  if (data.hasOwnProperty('keyWord')) query.push(`$filter=contains(Name,'${data.keyWord}')`)
+  if (data.hasOwnProperty('limitNum')) query.push(`$top=${data.limitNum}`)
+  let queryStr = query.join('&')
+  if (data.hasOwnProperty('city')) {
+    url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/${data.city}?${queryStr}`
   } else {
-    url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=${limitNum}&$filter=contains(Name,'${keyWord}')&$format=JSON`
+    url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?${queryStr}`
   }
 
   return fetch(

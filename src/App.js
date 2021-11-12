@@ -1,34 +1,27 @@
 import './App.css';
-// import React from 'react';
+
 import { getScenicSpot } from './api/getScenicSpot'
 import Pagination from './components/Pagination'
 import ScenicSpotList from './components/ScenicSpotList'
-import SearchBar from './components/SeachBar'
+import SearchBar from './components/SearchBarSimple'
 import NavBar from './components/NavBar';
 import Favorite from './components/Favorite'
+import SearchResult from './components/SearchResult';
+import SpotDetail from './components/SpotDetail';
 import React from 'react'
 import taiwanImg from './images/taiwan.png';
-import { Routes, Route, Link } from "react-router-dom";
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//       </header>
-//     </div>
-//   );
-// }
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 
 export default class App extends React.Component {
   render() {
     return (
-      <div>
-        <header>
-          <h1>Welcome to React Router!</h1>
-        </header>
+      <div className="bg-blue-light text-content">
+        <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/favorite" element={<Favorite />}></Route> */}
+          <Route path="/favorite" element={<Favorite />}></Route>
+          <Route path="/searchResult" element={<SearchResult />}></Route>
+          <Route path="/spotDetail" element={<SpotDetail />}></Route>
         </Routes>
       </div>
     );
@@ -45,14 +38,14 @@ class Home extends React.Component {
         perPage: 4,
         currentPage: 1
       },
-      totalDataAmount: 0
+      totalDataAmount: 0,
+      isSubmit: false,
     };
   }
 
   componentDidMount() {
-    getScenicSpot().then(
+    getScenicSpot({ limitNum: 4 }).then(
       (result) => {
-        // console.log(result);
         this.setState({
           scenicSpotList: result,
           totalDataAmount: result.length
@@ -74,26 +67,14 @@ class Home extends React.Component {
     if (evt && evt.keyCode !== 13) return;
     const searchKeyWord = this.state.seacrchInputValue;
     this.setState({
+      isSubmit: true
+    })
+    this.setState({
       pageData: {
         currentPage: 1,
         perPage: this.state.pageData.perPage
       }
     });
-    getScenicSpot(searchKeyWord).then(
-      (result) => {
-        this.setState({
-          scenicSpotList: result,
-          totalDataAmount: result.length
-        });
-      },
-      (error) => {
-        console.log(error);
-        // this.setState({
-        //   isLoaded: true,
-        //   error
-        // })
-      }
-    );
   }
 
   sliceData(arr) {
@@ -124,10 +105,10 @@ class Home extends React.Component {
       height: '629px'
     }
     return (
-      <div className="bg-blue-light">
-        <NavBar />
+      <div>
         <div className="container">
           <div className="flex pt-24 items-center">
+            {this.state.isSubmit && (< Navigate to={`/searchResult?country=123&keyword=${this.state.seacrchInputValue}`} replace={true} />)}
             <SearchBar
               inputValue={seacrchInputValue}
               onChange={(val) => this.handleSearchInputChange(val)}
@@ -146,7 +127,7 @@ class Home extends React.Component {
             jumpToPage={(i) => this.jumpToPage(i)}
           /> */}
         </div>
-      </div>
+      </div >
     );
   }
 }
