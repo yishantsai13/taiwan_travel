@@ -1,21 +1,21 @@
 import './App.css';
 
 import { getScenicSpot } from './api/getScenicSpot'
-import Pagination from './components/Pagination'
+// import Pagination from './components/Pagination'
 import ScenicSpotList from './components/ScenicSpotList'
-import SearchBar from './components/SearchBarSimple'
+import SearchBarSimple from './components/SearchBarSimple'
 import NavBar from './components/NavBar';
 import Favorite from './components/Favorite'
 import SearchResult from './components/SearchResult';
 import SpotDetail from './components/SpotDetail';
+import TainwanMap from './components/TaiwanMap';
 import React from 'react'
-import taiwanImg from './images/taiwan.png';
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 export default class App extends React.Component {
   render() {
     return (
-      <div className="bg-blue-light text-content">
+      <div className="bg-blue-light text-content pb-12">
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -40,6 +40,7 @@ class Home extends React.Component {
       },
       totalDataAmount: 0,
       isSubmit: false,
+      selectedCityList: []
     };
   }
 
@@ -63,9 +64,8 @@ class Home extends React.Component {
     });
   }
 
-  submitSearch(evt) {
-    if (evt && evt.keyCode !== 13) return;
-    const searchKeyWord = this.state.seacrchInputValue;
+  submitSearch() {
+    // const searchKeyWord = this.state.seacrchInputValue;
     this.setState({
       isSubmit: true
     })
@@ -96,26 +96,42 @@ class Home extends React.Component {
     });
   }
 
+  selectCity(city) {
+    if (this.state.selectedCityList.some(i => i === city)) {
+      let oldCityList = this.state.selectedCityList.slice()
+      let newCityList = oldCityList.filter(item => item !== city)
+      this.setState({
+        selectedCityList: newCityList
+      })
+      return
+    }
+    if (this.state.selectedCityList.length > 0) return
+    this.setState({
+      selectedCityList: [...this.state.selectedCityList, city]
+    })
+  }
+
   render() {
     const scenicSpotList = this.state.scenicSpotList;
     const seacrchInputValue = this.state.seacrchInputValue;
-    const taiwanImgStyle = {
-      backgroundImage: `url(${taiwanImg})`,
-      width: '559px',
-      height: '629px'
-    }
+    const searchQuery = []
+    if (this.state.selectedCityList[0]) searchQuery.push(`country=${this.state.selectedCityList[0]}`)
+    if (seacrchInputValue) searchQuery.push(`keyword=${seacrchInputValue}`)
+
     return (
       <div>
         <div className="container">
           <div className="flex pt-24 items-center">
-            {this.state.isSubmit && (< Navigate to={`/searchResult?country=123&keyword=${this.state.seacrchInputValue}`} replace={true} />)}
-            <SearchBar
+            {this.state.isSubmit && (< Navigate to={`/searchResult?${searchQuery.join('&')}`} replace={true} />)}
+            <SearchBarSimple
               inputValue={seacrchInputValue}
               onChange={(val) => this.handleSearchInputChange(val)}
               submitSearch={(evt) => this.submitSearch(evt)}
             />
-            <div style={taiwanImgStyle}>
-            </div>
+            <TainwanMap
+              selectedCityList={this.state.selectedCityList}
+              selectCity={(city) => this.selectCity(city)}
+            ></TainwanMap>
           </div>
           <div>
             <h3 className="text-lg pb-4">熱門景點</h3>
@@ -131,28 +147,3 @@ class Home extends React.Component {
     );
   }
 }
-
-// const cityList = {
-//   "Keelung": '基隆市',
-//   "Taipei": '台北市',
-//   "NewTaipei": '新北市',
-//   "Taoyuan": '桃園市',
-//   "Hsinchu": '新竹市',
-//   "HsinchuCounty": '新竹縣',
-//   "MiaoliCounty": '苗栗縣',
-//   "Taichung": '台中市',
-//   "ChanghuaCounty": '彰化縣',
-//   "NantouCounty": '南投縣',
-//   "YunlinCounty": '雲林縣',
-//   "Chiayi": '嘉義市',
-//   "ChiayiCounty": '嘉義縣',
-//   "Tainan": '台南市',
-//   "Kaohsiung": '高雄市',
-//   "PingtungCounty": '屏東縣',
-//   "TaitungCounty": '台東縣',
-//   "HualienCounty": '花蓮縣',
-//   "YilanCounty": '宜蘭縣',
-//   "PenghuCounty": '澎湖縣',
-//   "KinmenCounty": '金門縣',
-//   "LienchiangCounty": '連江縣'
-// }

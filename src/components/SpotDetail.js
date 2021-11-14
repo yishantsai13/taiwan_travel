@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getScenicSpot } from '../api/getScenicSpot'
+// import { getScenicSpot } from '../api/getScenicSpot'
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // components
 import SearchBar from "./SearchBar";
@@ -8,17 +9,14 @@ import SearchBar from "./SearchBar";
 export default function SpotDetail() {
   const location = useLocation();
   const detail = location.state && location.state.item || {}
-  // console.log(state)
-  const imgStyle = {
-    backgroundImage: `url(${detail.Picture.PictureUrl1})`
-  }
-  console.log(detail)
+
+  const navigate = useNavigate()
   return (
     <div className="container">
       <SearchBar></SearchBar>
       <div>
         <div className="my-6 text-secondary">
-          <span>返回</span>
+          <span onClick={() => navigate(-1)} className={'cursor-pointer'}>返回</span>
         </div>
         <div className="bg-white px-10 py-8">
           <div className="text-xl mb-5">{detail.Name}</div>

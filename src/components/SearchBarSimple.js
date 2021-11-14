@@ -11,7 +11,6 @@ export default class SearchBarSimple extends React.Component {
           placeholder="輸入關鍵字"
           value={this.props.inputValue}
           onChange={(event) => this.props.onChange(event)}
-          onKeyUp={(event) => this.props.submitSearch(event)}
         />
         <button
           type="submit"

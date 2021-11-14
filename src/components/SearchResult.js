@@ -12,11 +12,11 @@ export default function SearchResult() {
   const [totalDataAmount, setTotalDataAmount] = useState(0)
 
   let [searchParams] = useSearchParams();
-  const value = searchParams.get("country")
+  const city = searchParams.get("country") || ''
   const keyWord = searchParams.get("keyword")
-  console.log(keyWord)
+
   useEffect(() => {
-    getScenicSpot({ keyWord, limitNum: 20 }).then(
+    getScenicSpot({ keyWord, limitNum: 20, city }).then(
       (result) => {
         setScenicSpotList(result)
         setTotalDataAmount(result.length)
@@ -27,6 +27,7 @@ export default function SearchResult() {
     );
   }, [keyWord])
 
+  console.log(scenicSpotList)
   // const scenicSpotList = this.state.scenicSpotList.slice();
   const cardList = scenicSpotList.map((item, index) => {
     return (
@@ -39,7 +40,7 @@ export default function SearchResult() {
 
   return (
     <div className="container">
-      <SearchBar></SearchBar>
+      <SearchBar city={city} keyWord={keyWord}></SearchBar>
       <div className="grid grid-cols-4 gap-4 mt-10">
         {cardList}
       </div>

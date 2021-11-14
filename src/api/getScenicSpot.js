@@ -14,10 +14,9 @@ function getAuthorizon() {
 }
 
 function getScenicSpot(data = {}) {
-  console.log(data)
   let url = ''
   let query = ['$format=JSON']
-  if (data.hasOwnProperty('keyWord')) query.push(`$filter=contains(Name,'${data.keyWord}')`)
+  if (data.hasOwnProperty('keyWord')) data.keyWord && query.push(`$filter=contains(Name,'${data.keyWord}')`)
   if (data.hasOwnProperty('limitNum')) query.push(`$top=${data.limitNum}`)
   let queryStr = query.join('&')
   if (data.hasOwnProperty('city')) {
